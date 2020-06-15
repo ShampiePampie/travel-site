@@ -16,7 +16,7 @@ class RevealOnScroll{
         window.addEventListener("resize", debounce(() => {
             console.log("Resize just ran");
             this.browserHeight = window.innerHeight;
-        }, 333))
+        }, 333));
     }
 
     calcCaller() {
@@ -43,8 +43,10 @@ class RevealOnScroll{
     }
 
     hideInitially(){
-        this.itemsToReveal.forEach(el => {el.classList.add("reveal-item")
-    el.isRevealed = false;});
+        this.itemsToReveal.forEach(el => {
+            el.classList.add("reveal-item");
+            el.isRevealed = false;
+        });
     this.itemsToReveal[this.itemsToReveal.length - 1].isLastItem = true;
     }
 }
