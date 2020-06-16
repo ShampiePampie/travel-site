@@ -6,6 +6,7 @@
   <title>Clear View Escapes</title>
   <meta name="keywords" content="Travel planning, travel bundles, travel escapes, affordable travel">
   <meta name="description" content="Your clarity. One trip away. We create soul restoring journeys that inspire you to be you.">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script type="text/javascript">
     var datefield=document.createElement("input")
     datefield.setAttribute("type", "date")
@@ -13,25 +14,16 @@
         document.write('<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />\n')
         document.write('<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"><\/script>\n')
         document.write('<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"><\/script>\n') 
+        document.write('<script src="assets/scripts/modules/jQueryDatepicker-de.js"><\/script>\n') 
     }
 </script>
  
 <script>
 if (datefield.type!="date"){ //if browser doesn't support input type="date", initialize date picker widget:
     jQuery(function($){ //on document.ready
-        $.datepicker.regional['de'] = {
-    closeText: 'Schließen', // set a close button text
-    currentText: 'Heute', // set today text
-    monthNames: ['Januar','Februar','März','April','Mai','Juni', 'Juli','August','September','Oktober','November','Dezember'], // set month names
-    monthNamesShort: ['Jan','Feb','Mar','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'], // set short month names
-    dayNames: ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'], // set days names
-    dayNamesShort: ['So','Mo','Di','Mi','Do','Fr','Sa'], // set short day names
-    dayNamesMin: ['So','Mo','Di','Mi','Do','Fr','Sa'], // set more short days names
-    dateFormat: 'dd.mm.yy', // set format date
-    setDate: '29.08.2020'
-};
-
-    $('#birthday').datepicker($.extend({}, $.datepicker.regional["de"]));
+        $('#eventDateFrom').datepicker($.extend({}, $.datepicker.regional["de"]));
+        $('#eventDateTo').datepicker($.extend({}, $.datepicker.regional["de"]));
+        
     })
 }
 </script>
@@ -40,24 +32,25 @@ if (datefield.type!="date"){ //if browser doesn't support input type="date", ini
 <body>
     <form>
         <b>Von:</b>
-        <input type="date" id="eventDateFrom" name="eventDateFrom" size="20" />
-        <input type="button" value="Submit" name="eventDateFromBTN"></p>
+        <input type="date" id="eventDateFrom" name="eventDateFrom" size="20" value="" onchange="dateFilter();" />
+        <p>bis:</p>
+        <input type="date" id="eventDateTo" name="eventDateTo" size="20" value="" onchange="dateFilter();"/>
+        <!--<input id="filterDateBTN" type="button" value="Submit" name="eventDateFromBTN">-->
         </form>
-<p>======</p>        
+<p>======</p>
 
+<input type="hidden" id="start" />
 
-<div class="dateFilter">
-    <input type="date" placeholder="2020-08-29" value="2020-08-29">
-</div>
   <div>
-      <p class="EventTile" data-eventdate="1595973600000">29. Juni 2020</p>
+      <p class="EventTile visible-event" data-eventdate="1592604000000">20. Juni 2020 v</p>
+      <p class="EventTile visible-event" data-eventdate="1595973600000">29. Juli 2020 v</p>
       <p class="EventTile" data-eventdate="1596405600000">3. August 2020</p>
       <p class="EventTile" data-eventdate="1600725600000">22. September 2020</p>
-      <p class="EventTile" data-eventdate="1601071200000">26. September 2020</p>
+      <p class="EventTile visible-event" data-eventdate="1601071200000">26. September 2020 v</p>
       <p class="EventTile" data-eventdate="1601676000000">3. Oktober 2020</p>
-      <p class="EventTile" data-eventdate="1604876400000">9. November 2020</p>
+      <p class="EventTile visible-event" data-eventdate="1604876400000">9. November 2020 v</p>
       <p class="EventTile" data-eventdate="1609369200000">31. Dezember 2020</p>
-      <p class="EventTile" data-eventdate="1609455600000">1. Januar 2021</p>
+      <p class="EventTile visible-event" data-eventdate="1609455600000">1. Januar 2021 v</p>
       <p class="EventTile" data-eventdate="1613257200000">14. Februar 2021</p>
       <p class="EventTile" data-eventdate="1615676400000">14. März 2021</p>
       <p class="EventTile" data-eventdate="1618351200000">14. April 2021</p>
