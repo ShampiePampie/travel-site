@@ -30,7 +30,7 @@ datepicker.regional.de = {
 	isRTL: false,
 	showMonthAfterYear: false,
 	yearSuffix: "",
-	onSelect: function(date){
+	onSelect: function(){
 		dateFilter();
 	} };
 datepicker.setDefaults( datepicker.regional.de );

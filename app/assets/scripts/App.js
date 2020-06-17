@@ -6,14 +6,13 @@ import { polyfill } from 'es6-promise'; polyfill();
 let mobileMenu = new MobileMenu();*/
 
 
-/* Datum der ersten Kachel */
-console.log("eventdate: " + $('.EventTile')[0].dataset.eventdate);
-
+/* Default Dates */
     var now = new Date();
     var dayNow = now.getDate();
     var monthNow = now.getMonth()+1; /* +1, weil Januar = 0 */
     var yearNow = now.getFullYear();
     
+    /* Leading 0 */
     var dayNowString = ('0' + dayNow).slice(-2);
     var monthNowString = ('0' + monthNow).slice(-2);
 
@@ -24,9 +23,6 @@ console.log("eventdate: " + $('.EventTile')[0].dataset.eventdate);
 
     var dayLaterString = ('0' + dayLater).slice(-2);
     var monthLaterString = ('0' + monthLater).slice(-2);
-
-    console.log("setNow: " + now);
-    console.log("setLater: " + later);
 
 /*--------------------------------------*/
 if(typeof document.getElementsByTagName('html')[0] == 'undefined'){
@@ -50,44 +46,43 @@ function defaultDate(){
         $('#eventDateTo')[0].placeholder = dayLaterString +'.'+ monthLaterString +'.'+ yearLater;
         /*$('#eventDateFrom')[0].value = yearNow +'-'+ monthNowString +'-'+ dayNowString;*/
     }
-    
-    
-    console.log("===================");
-    var fromDate = $('#eventDateFrom')[0].value;
-    console.log(new Date($('#eventDateFrom')[0].value));
-    console.log("===================");
-} /* setDate END */
+} /* defaultDate END */
 
-$(document).ready(function(){
-    window.dateFilter = function dateFilter(){
-        console.log("Chaaange");
-        var newDateFrom = $('#eventDateFrom')[0].value;
-        var newDateTo = $('#eventDateTo')[0].value;
+window.dateFilter = function dateFilter(){
+    var newDateFrom = $('#eventDateFrom')[0].value;
+    var newDateTo = $('#eventDateTo')[0].value;
 
-        /*Split at IE*/
-        if (window.document.documentMode) {
-            newDateFrom = ieDate(newDateFrom);
-            newDateTo = ieDate(newDateTo);
-            console.log(newDateFrom + " from IE");
-        }
-        newDateFrom = new Date(newDateFrom).getTime();
-        newDateTo = new Date(newDateTo).getTime();
-        console.log("New Value: " + new Date(newDateFrom) + " - " + new Date(newDateTo));
-        if(isNaN(newDateFrom) || isNaN(newDateTo)){
-            /* Hier noch nicht rechnen! */
-            console.log("Ein Datum ist invalid!");
+    /*Split at IE*/
+    if (window.document.documentMode) {
+        newDateFrom = ieDate(newDateFrom);
+        newDateTo = ieDate(newDateTo);
+    }
+    newDateFrom = new Date(newDateFrom).getTime();
+    newDateTo = new Date(newDateTo).getTime();
+
+    if(isNaN(newDateFrom) || isNaN(newDateTo)){
+        /* Hier noch nicht rechnen! */
+        console.log("Ein Datum ist invalid!");
+    } else {
+        if(newDateFrom > newDateTo){
+            console.log("Das erste Datum darf nicht hinter dem 2. liegen.");
+            $('#eventDateFrom')[0].classList.add("eventDate--error");
         } else {
-            $('.EventTile').each(function(tile){
+            $('#eventDateFrom')[0].classList.remove("eventDate--error");
+            $('.EventTile').each(function(){
                 var thisTime = new Date(parseInt(this.dataset.eventdate)).getTime();
                 
                 if(thisTime < newDateTo && thisTime > newDateFrom && this.classList.contains('visible-event')){
                     console.log(this);
+                    this.style.display = "flex";
+                } else{
+                    this.style.display = "none";
                 }
             });
         }
+        
     }
-})
-    
+}
 
 function ieDate(date){
     var ieSplit = date.split('.');
